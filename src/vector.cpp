@@ -21,3 +21,11 @@ vector vector::operator^(const vector &v) {
 std::string vector::to_string() {
     return "<" + std::to_string(this->x) + ", " + std::to_string(this->y) + ", " + std::to_string(this->z) + ">";
 }
+
+void vector::print_vector(vector& v) {
+    std::cout << v << std::endl;
+}
+
+std::ostream& operator<<(std::ostream& os, vector& v) {
+    return os << v.to_string();
+}

@@ -15,8 +15,6 @@ void player::move(int dx, int dy) {
     this->y += dy;
 }
 
-int main(int argc, char** argv) {
-    player player(1, 2, 3);
-
-    std::cout << player.to_string() << std::endl;
+std::ostream& operator<<(std::ostream& os, player& p) {
+    return os << p.to_string();
 }

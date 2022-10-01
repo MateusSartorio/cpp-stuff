@@ -13,3 +13,5 @@ class player {
         std::string to_string();
         void move(int dx, int dy);
 };
+
+std::ostream& operator<<(std::ostream& os, player& p);
