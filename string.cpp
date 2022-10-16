@@ -11,7 +11,11 @@ void* operator new (size_t size) {
 }
 
 int main(int argc, char** argv) {
-    string_view first_name("cool", 4);
+    //string_view first_name("cool", 4);
+    
+    string s = "aaaaaaaaaaaaaaaa";
+
+    cout << alloc_count << endl;
 
 	return 0;
 }
