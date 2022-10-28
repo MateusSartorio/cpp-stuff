@@ -2,8 +2,68 @@
 
 #include <iostream>
 
+template<typename vector>
+class vector_iterator {
+    public:
+        using value_type = typename vector::value_type;
+        using pointer_type = value_type*;
+        using reference_type = value_type&;
+
+        vector_iterator(pointer_type ptr)
+            : ptr(ptr) {}
+
+        vector_iterator& operator++() {
+            this->ptr++;
+            return *this;
+        }
+
+        vector_iterator operator++(int) {
+            vector_iterator it = *this;
+            ++(*this);
+            return it;
+        }
+
+        vector_iterator& operator--() {
+            this->ptr--;
+            return *this;
+        }
+
+        vector_iterator& operator--(int) {
+            vector_iterator it = *this;
+            --(*this);
+            return it;
+        }
+
+        reference_type operator[](int index) {
+            return this->data + index;
+        }
+
+        pointer_type operator->() {
+            return this->ptr;
+        }
+
+        reference_type operator*() {
+            return *(this->ptr);
+        }
+
+        bool operator==(const vector_iterator& other) const {
+            return this->ptr == other.ptr;
+        }
+
+        bool operator!=(const vector_iterator& other) const {
+            return !(*this == other);
+        }
+
+    private:
+        pointer_type ptr;
+};
+
 template<typename T>
 class vector {
+    public:
+        using value_type = T;
+        using iterator = vector_iterator<vector<T>>;
+
     private:
         T* data = nullptr;
         size_t size = 0;
@@ -30,7 +90,7 @@ class vector {
 
         void push_back(const T& value) {
             if(this->size >= this->capacity)
-                realloc((3/2)*this->size);
+                realloc(2*this->size);
 
             this->data[this->size++] = value;
         }
@@ -49,5 +109,13 @@ class vector {
 
         T& operator[](size_t index) {
             return this->data[index];
+        }
+
+        iterator begin() {
+            return iterator(this->data);
+        }
+
+        iterator end() {
+            return iterator(this->data + this->size);
         }
 };

@@ -28,4 +28,48 @@ class array {
         const T& operator[](size_t index) const {
             return this->data[index];
         }
+
+        class iterator {
+            public:
+                iterator(T* ptr)
+                    : ptr(ptr) {}
+
+                T& operator*() const {
+                    return *(this->ptr);
+                }
+
+                T* operator->() {
+                    return this->ptr;
+                }
+
+                iterator& operator++() {
+                    this->ptr++;
+                    return *this;
+                }
+
+                iterator& operator++(int) {
+                    iterator& temp = *this;
+                    ++(*this);
+                    return temp;
+                }
+
+                bool operator==(const iterator& other) const {
+                    return this->ptr == other.ptr;
+                }
+
+                bool operator!=(const iterator& other) const {
+                    return !(*this == other);
+                }
+
+            private:
+                T* ptr;
+        };
+
+        iterator begin() {
+            return iterator(this->data);
+        }
+
+        iterator end() {
+            return iterator(this->data + s);
+        }
 };
